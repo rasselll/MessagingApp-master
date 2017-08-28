@@ -1,6 +1,7 @@
 package com.myproj.blogapp;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 /**
@@ -32,6 +34,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     private List<Message> messagesList;
     private DatabaseReference databaseReference;
+    private Context context;
+    DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("Users").child("image");
+   private String imageUrl;
 
 
     public MessageAdapter(List<Message> messagesList) {
@@ -44,18 +49,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         String sender = c.getFrom();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(sender);
 
-
-        if(databaseReference.equals(sender)){
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.messages_layout, parent, false);
             return new MessageViewHolder(v);
 
-        }else{
-
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.messages_layout, parent, false);
-            return new MessageViewHolder(v);
-        }
 
     }
 
@@ -63,43 +60,31 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     @Override
     public void onBindViewHolder(final MessageViewHolder viewHolder, final int index) {
+
         final Message c = messagesList.get(index);
 
         final String sender = c.getFrom();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(sender);
         databaseReference.addValueEventListener(new ValueEventListener() {
 
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                imageUrl = dataSnapshot.child("image").getValue(String.class);
+
+              viewHolder.setUserimage(context,imageUrl);
+               // viewHolder.showImage.setImageURI(Uri.parse(imageUrl));
 
 
                 String name = dataSnapshot.child("name").getValue().toString();
                 viewHolder.displayName.setText(name);
 
-
-
-               //String imageUrl = dataSnapshot.child("image").getValue().toString();
-                //viewHolder.showImage.setImageURI(Uri.parse(imageUrl));
-
-       /*         Picasso
-
-                        .load(imageUrl)
-                        .error(R.drawable.error)
-                        .resize(120, 120)
-                        .transform(new CropCircleTransformation())
-                        .into();
-*/
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
 
         });
-
 
         viewHolder.messageText.setText(c.getMessage());
         viewHolder.time.setText(EpochtimeToDateAndTimeString(c.getTime()));

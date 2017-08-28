@@ -6,19 +6,24 @@
     android:background="@drawable/my_shape_file"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp">
-
+    <ImageView
+        android:id="@+id/imageview_post_userimage1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/userImage"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/userImage"
         android:text="Default Name"
         android:textAlignment="center"
         android:textSize="21sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toEndOf="@+id/imageview_post_userimage1" />
 
     <TextView
         android:id="@+id/userstatus"
@@ -41,13 +46,6 @@
         android:visibility="invisible"
         app:srcCompat="@android:drawable/presence_online" />
 
-    <ImageView
-        android:id="@+id/imageview_post_userimage"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="41dp"
-   />
+
 
 </RelativeLayout>

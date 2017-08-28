@@ -1,6 +1,7 @@
 package com.myproj.blogapp;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,16 +27,13 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         messageText = (TextView) view.findViewById(R.id.messagetext);
         displayName = (TextView) view.findViewById(R.id.displayname);
         time = (TextView) view.findViewById(R.id.timestamp);
-        showImage = (ImageView) view.findViewById(R.id.imageview_post_userimage);
+        showImage = (ImageView) view.findViewById(R.id.imageview_post_userimage3);
+    }
 
-
-
-
-}
 
     public void setUserimage(Context context, String imageUrl) {
-        Picasso
-                .with(context)
+Picasso
+        .with(context)
                 .load(imageUrl)
                 .error(R.drawable.error)
                 .resize(120, 120)
@@ -43,4 +41,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
                 .into(showImage);
 
     }
+
+
 }
+

@@ -29,12 +29,12 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setUserimage(Context context, String imageUrl) {
-        ImageView imageViewPostUserImage1 = (ImageView) userView.findViewById(R.id.imageview_post_userimage);
+        ImageView imageViewPostUserImage1 = (ImageView) userView.findViewById(R.id.imageview_post_userimage1);
         Picasso
                 .with(context)
                 .load(imageUrl)
                 .error(R.drawable.error)
-                .resize(120, 120)
+                .resize(500, 500)
                 .transform(new CropCircleTransformation())
                 .into(imageViewPostUserImage1);
     }
